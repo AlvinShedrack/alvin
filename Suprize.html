@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy Girlfriend's Day, Bella! 💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #ff4d6d;
+            --deep-red: #c9184a;
+            --soft-pink: #ffb3c1;
+            --bg-gradient: linear-gradient(135deg, #1f040d 0%, #0d0104 100%);
+            --card-bg: rgba(255, 255, 255, 0.07);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-gradient);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        /* Floating Hearts Background */
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            color: var(--primary-pink);
+            font-size: 18px;
+            animation: floatUp 5s linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(105vh) scale(0.5) rotate(0deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.2) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Page Container System */
+        .page {
+            position: absolute;
+            width: 90%;
+            max-width: 420px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 25px 20px;
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            z-index: 2;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.85) translateY(30px);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .page.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1) translateY(0);
+        }
+
+        /* Typography & Animations */
+        .heart-icon {
+            font-size: 3.8rem;
+            color: var(--primary-pink);
+            animation: pulseHeart 1.4s infinite alternate;
+            margin-bottom: 12px;
+            text-shadow: 0 0 20px rgba(255, 77, 109, 0.8);
+        }
+
+        @keyframes pulseHeart {
+            0% { transform: scale(1); text-shadow: 0 0 10px rgba(255, 77, 109, 0.5); }
+            100% { transform: scale(1.18); text-shadow: 0 0 25px rgba(255, 77, 109, 0.95); }
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.6rem;
+            color: var(--soft-pink);
+            margin-bottom: 10px;
+            line-height: 1.2;
+            text-shadow: 0 0 10px rgba(255, 179, 193, 0.4);
+        }
+
+        p {
+            font-size: 0.92rem;
+            line-height: 1.6;
+            color: #e3d5d5;
+            margin-bottom: 20px;
+        }
+
+        /* Buttons */
+        .btn {
+            background: linear-gradient(135deg, var(--primary-pink), var(--deep-red));
+            color: white;
+            border: none;
+            padding: 13px 26px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(201, 24, 74, 0.4);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            outline: none;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn:active {
+            transform: scale(0.94);
+            box-shadow: 0 2px 8px rgba(201, 24, 74, 0.3);
+        }
+
+        /* Photo Styling */
+        .photo-frame {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--soft-pink);
+            box-shadow: 0 0 25px var(--primary-pink);
+            margin-bottom: 20px;
+        }
+
+        /* Flip Cards */
+        .flip-card {
+            background-color: transparent;
+            width: 100%;
+            height: 115px;
+            perspective: 1000px;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .flip-card-front {
+            background: rgba(255, 77, 109, 0.15);
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .flip-card-back {
+            background: rgba(201, 24, 74, 0.35);
+            color: var(--soft-pink);
+            transform: rotateY(180deg);
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .signature {
+            margin-top: 15px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .signature span {
+            color: var(--primary-pink);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Background Hearts -->
+    <div class="hearts-container" id="heartsContainer"></div>
+
+    <!-- PAGE 1: Welcome -->
+    <div class="page active" id="page1">
+        <div class="heart-icon">💖</div>
+        <h1>Hi, Bella!</h1>
+        <p>It's me, Alvin. I built this special interactive journey just for you on this wonderful Girlfriend's Day.</p>
+        <button class="btn" onclick="nextPage(2)">Open ✨</button>
+    </div>
+
+    <!-- PAGE 2: Letter -->
+    <div class="page" id="page2">
+        <div class="heart-icon">💌</div>
+        <h1>My Dearest Bella</h1>
+        <p>
+            Every single day with you feels like an absolute blessing. You bring so much light, warmth, and genuine happiness into my life that I cannot imagine not knowing you.
+        </p>
+        <button class="btn" onclick="nextPage(3)">Continue 💫</button>
+    </div>
+
+    <!-- PAGE 3: Photo -->
+    <div class="page" id="page3">
+        <!-- Ensure bella_photo.jpg is in the same folder, otherwise it hides gracefully -->
+        <img src="bella_photo.jpg" alt="Bella" class="photo-frame" onerror="this.style.display='none';">
+        <h1>So Beautiful</h1>
+        <p>Thinking of you today and always, Bella.</p>
+        <button class="btn" onclick="nextPage(4)">Read Reasons Why 🌹</button>
+    </div>
+
+    <!-- PAGE 4: Flip Cards Set 1 -->
+    <div class="page" id="page4">
+        <h1>Why You're My Everything</h1>
+        <p style="margin-bottom: 12px; font-size: 0.82rem;">Tap each card, Bella:</p>
+        
+        <div class="flip-card" onclick="toggleFlip(this)">
+            <div class="flip-card-inner">
+                <div class="flip-card-front"><span>🌸 Your Gorgeous Smile</span></div>
+                <div class="flip-card-back">Bella, a glance of your smile in pics instantly brightens up even my heaviest days. It was even more marvelous when I saw it physically.</div>
+            </div>
+        </div>
+
+        <div class="flip-card" onclick="toggleFlip(this)">
+            <div class="flip-card-inner">
+                <div class="flip-card-front"><span>✨ Your Pure Heart</span></div>
+                <div class="flip-card-back">The way you have pure and clean intentions and thoughts and your compassion makes me admire you more each day, Sweetheart.</div>
+            </div>
+        </div>
+
+        <button class="btn" onclick="nextPage(5)">More Reasons 🥰</button>
+    </div>
+
+    <!-- PAGE 5: Flip Cards Set 2 -->
+    <div class="page" id="page5">
+        <h1>Things I Adore</h1>
+        <p style="margin-bottom: 12px; font-size: 0.82rem;">Tap to reveal more, Bella:</p>
+        
+        <div class="flip-card" onclick="toggleFlip(this)">
+            <div class="flip-card-inner">
+                <div class="flip-card-front"><span>💫 How You Understand Me</span></div>
+                <div class="flip-card-back">Bella, you effortlessly get me like nobody else ever could. You are my safe place and my best friend.</div>
+            </div>
+        </div>
+
+        <div class="flip-card" onclick="toggleFlip(this)">
+            <div class="flip-card-inner">
+                <div class="flip-card-front"><span>🌙 My Favorite Thought</span></div>
+                <div class="flip-card-back">You are the very first thought on my mind when I wake up, and my last dream before sleep, Bella.</div>
+            </div>
+        </div>
+
+        <button class="btn" onclick="nextPage(6)">My Promise 💍</button>
+    </div>
+
+    <!-- PAGE 6: Promise -->
+    <div class="page" id="page6">
+        <div class="heart-icon">🥰</div>
+        <h1>My Promise to You, Bella</h1>
+        <p>
+            My love, I promise to always cherish you, stand by your side, and make you feel special today, tomorrow, and for all our days ahead.
+        </p>
+        <button class="btn" style="background: rgba(255, 22, 22, 0.575); margin-top: 10px;" onclick="nextPage(7)">Final Note ✨</button>
+    </div>
+
+    <!-- PAGE 7: Closing -->
+    <div class="page" id="page7">
+        <div class="heart-icon" style="font-size: 4.5rem;">💖✨</div>
+        <h1>Forever Yours, Bella</h1>
+        <p>
+            Thank you for being the most incredible girlfriend in the world. Happy Girlfriend's Day, my love! 
+        </p>
+        <div style="font-style: italic; color: var(--soft-pink); margin-bottom: 15px; font-size: 0.9rem;">
+            "No matter where life takes us, Alvin's heart always stays with you."
+        </div>
+        <p style="font-size: 0.8rem; opacity: 0.8;">
+           (Am sorry I couldn't manage to spend this day with you, or get you something; because of the hinderances at hand. Kindly accept my apology🙏)
+        </p>
+        <h1 style="color: #ff4d6d;font-size: 30">I love you so much</h1>
+        <button class="btn" onclick="nextPage(1)">Restart Story 🔄</button>
+        <div class="signature">
+            Designed with all my heart from <span>Alvin</span> to you <span>Bella</span>
+        </div>
+    </div>
+
+    <script>
+        // Generate Floating Background Hearts
+        function createHeart() {
+            const container = document.getElementById('heartsContainer');
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 2 + 3.5) + 's';
+            heart.style.fontSize = (Math.random() * 12 + 14) + 'px';
+            container.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        // Create hearts less frequently initially to save performance
+        setInterval(createHeart, 300);
+
+        // Smooth Page Navigation
+        function nextPage(pageNum) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+
+            // Show target page
+            const targetPage = document.getElementById('page' + pageNum);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                
+                // Trigger a small burst of hearts on page change
+                for (let i = 0; i < 8; i++) {
+                    setTimeout(createHeart, i * 40);
+                }
+            }
+        }
+
+        // Tap-to-Flip functionality
+        function toggleFlip(card) {
+            card.classList.toggle('flipped');
+        }
+
+// Trigger massive love shower explosion
+        function triggerLoveShower() {
+            // Disable button briefly to prevent spam clicking
+            const btn = event.target;
+            btn.disabled = true;
+            btn.innerText = "Sending Love... 🥰";
+
+            // Create a rapid burst of hearts
+            for (let i = 0; i < 60; i++) {
+                setTimeout(createHeart, i * 25);
+            }
+
+            // Reset button after animation
+            setTimeout(() => {
+                btn.disabled = false;
+                btn.innerText = "Send Infinite Kisses 💕";
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
